@@ -34,6 +34,7 @@ And give it permission to:
 
 Create a file named `.env` in the project root:
 
+DISCORD_TOKEN=your_token_here
 
 ---
 
@@ -45,7 +46,7 @@ pip install -r requirements.txt
 
 FFmpeg is required for voice playback.
 
-Windows
+# Windows
 
 Download from: https://www.gyan.dev/ffmpeg/builds/#release-builds
 
@@ -53,7 +54,8 @@ Extract the archive
 
 Add the bin folder to your System PATH
 
-Linux
+# Linux
+
 sudo apt install ffmpeg
 
 ### 6️. Add Sounds

@@ -10,9 +10,6 @@ token = os.getenv("DISCORD_TOKEN")
 
 SOUNDS_PATH = "sounds"
 
-GUILD_ID = 532314047534727172
-guild = discord.Object(id=GUILD_ID)
-
 bot = commands.Bot(command_prefix='/', intents=discord.Intents.default())
 
 def get_sound_files():
@@ -20,14 +17,14 @@ def get_sound_files():
 
 @bot.event
 async def on_ready():
-    await bot.tree.sync(guild=guild)
+    await bot.tree.sync()
     print("Synced")
 
 async def sound_autocomplete(interaction: discord.Interaction, current: str):
     sounds = get_sound_files()
     return [discord.app_commands.Choice(name=s, value=s) for s in sounds if current.lower() in s.lower()]
 
-@bot.tree.command(name="play",description="Plays a sound",guild=guild)
+@bot.tree.command(name="play",description="Plays a sound")
 @discord.app_commands.autocomplete(name=sound_autocomplete)
 async def sound(interaction: discord.Interaction, name: str):
     if interaction.user.voice:
@@ -37,7 +34,7 @@ async def sound(interaction: discord.Interaction, name: str):
         channel = interaction.user.voice.channel
         voice_client = await channel.connect()
 
-        audio = discord.FFmpegPCMAudio(source=f'{SOUNDS_PATH}/{name}.mp3',executable='ffmpeg/bin/ffmpeg.exe')
+        audio = discord.FFmpegPCMAudio(source=f'{SOUNDS_PATH}/{name}.mp3')
 
         await  interaction.followup.send("Playing sound")
         
